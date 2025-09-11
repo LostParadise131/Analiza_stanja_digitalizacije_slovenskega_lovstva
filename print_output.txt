@@ -1,0 +1,79 @@
+OSNOVNI PODATKI:
+st_vrst:195, st_stolpcev:10
+Mean in stevilo NaN za vsak stolpec:
+Ali ima vaša lovska družina spletno stran?
+Mean = 0.2500, Stevilo NaN = 0.0000
+
+Kdaj ste nazadnje posodobili spletno stran?
+Mean = 0.1504, Stevilo NaN = 0.0000
+
+Kako pogosto izvajate sestanke na daljavo preko spleta (Zoom, MS Teams)?
+Mean = 0.0282, Stevilo NaN = 0.0000
+
+Ali bi izvajali sestanke na daljavo v primeru, če bi Lovska zveza Slovenije za vašo lovsko družino poskrbela za to možnost?
+Mean = 0.4545, Stevilo NaN = 19.0000
+
+Ali bi bilo po vašem mnenju dobro, da bi lovska družina imela (spletno) aplikacijo za podporo delovanja lovske družine?
+Mean = 0.8103, Stevilo NaN = 0.0000
+
+Kakšno je splošno mnenje v lovski družini o aplikaciji Lisjak?
+Mean = 0.7423, Stevilo NaN = 1.0000
+
+Ali bi bilo po vašem mnenju dobro, da bi lovci imeli možnost za izobraževanje na daljavo?
+Mean = 0.8196, Stevilo NaN = 1.0000
+
+Ali bi bilo po vašem mnenju koristno, da bi aplikacija Lisjak predčasno poslala lovski družini opozorilo o izteku veljavnosti orožnega lista, izteku veljavnosti imenovanja lovskega čuvaja in izteku veljavnosti pregledniškega tečaja za pregled trupa divjadi za posamezne člane lovske družine?
+Mean = 0.9278, Stevilo NaN = 1.0000
+
+Ali bi bilo po vašem mnenju koristno, da bi imeli lovski čuvaji aplikacijo za izdelavo poročil?
+Mean = 0.7897, Stevilo NaN = 8.0000
+
+Ali bi bilo po vašem mnenju koristno, da bi aplikacija Lisjak opozorila na nepravilno prijavo za odlikovanja?
+Mean = 0.8485, Stevilo NaN = 8.0000
+
+
+HIERARHICNO GRUCENJE:
+
+'Najboljse' stevilo gruc 26 s silhueto 0.46570571973788116 z razdaljo cityblock
+
+'Najboljse' stevilo gruc 11 s silhueto 0.46219240932688044 z razdaljo euclidean
+
+
+PCA:
+Stevilo komponent za vec kot 90% variance: 5
+Vpliv posameznih vprašanj na 90% variance:
+(1) Q7 Ali bi bilo po vašem mnenju dobro, da bi lovska dr:
+ 1.9519
+(2) Q11 Ali bi bilo po vašem mnenju dobro, da bi lovci ime:
+ 1.6511
+(3) Q5 Ali bi izvajali sestanke na daljavo v primeru, če :
+ 1.5508
+(4) Q13 Ali bi bilo po vašem mnenju koristno, da bi imeli :
+ 1.1820
+(5) Q2 Ali ima vaša lovska družina spletno stran?:
+ 0.9016
+
+
+RAZLOZLJIVE GRUCE:
+Tabela podatkov za 2 gruc:
+            Q2     Q3     Q4     Q5     Q7    Q10    Q11    Q12    Q13    Q14
+Cluster                                                                      
+1       0.9635 0.6111 0.0573 0.4716 0.8542 0.7292 0.8750 0.9375 0.8012 0.8788
+2       0.0170 0.0000 0.0187 0.4490 0.7959 0.7465 0.8015 0.9247 0.7859 0.8386
+
+------------------------------------------------------------
+IZBRANA tabela podatkov za 3 gruc:
+            Q2     Q3     Q4     Q5     Q7    Q10    Q11    Q12    Q13    Q14
+Cluster                                                                      
+1       0.9635 0.6111 0.0573 0.4716 0.8542 0.7292 0.8750 0.9375 0.8012 0.8788
+2       0.0000 0.0000 0.0000 1.0000 1.0000 0.7753 0.9461 0.9423 0.8629 0.8819
+3       0.0284 0.0000 0.0312 0.0795 0.6591 0.7273 0.7045 0.9129 0.7343 0.8096
+------------------------------------------------------------
+
+Tabela podatkov za 4 gruc:
+            Q2     Q3     Q4     Q5     Q7    Q10    Q11    Q12    Q13    Q14
+Cluster                                                                      
+1       0.9635 0.6111 0.0573 0.4716 0.8542 0.7292 0.8750 0.9375 0.8012 0.8788
+2       0.0000 0.0000 0.0000 1.0000 1.0000 0.7753 0.9461 0.9423 0.8629 0.8819
+3       0.0962 0.0000 0.0096 0.0175 0.5385 0.7179 0.0000 0.8718 0.6809 0.7774
+4       0.0000 0.0000 0.0403 0.1056 0.7097 0.7312 1.0000 0.9301 0.7567 0.8231
