@@ -112,11 +112,14 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
         for dist_type in distance_types:
             dist_matrix = pdist(data, metric=dist_type)
 
-            Z = linkage(dist_matrix, method="ward")
+            if dist_type == "euclidean":
+                Z = linkage(dist_matrix, method="ward")
+            else:
+                Z = linkage(dist_matrix, method="complete")
 
             # Step 5: determiniraj "optimalno" stevilo gruc
             sil_scores = {}
-            for k in range(2, 30):
+            for k in range(2, 31):
                 cluster_labels = fcluster(Z, k, criterion="maxclust")
                 score = silhouette_score(
                     squareform(dist_matrix), cluster_labels, metric="precomputed"
@@ -226,7 +229,7 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
 
         dist_matrix = pdist(data, metric="cityblock")
 
-        Z = linkage(dist_matrix, method="ward")
+        Z = linkage(dist_matrix, method="complete")
 
         sil_scores = {}
         for k in range(2, 5):
@@ -237,8 +240,8 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
             sil_scores[k] = score
             # tabela vrstice: gruce, stolpci: povprecne vrednosti vprasanj
             data_with_clusters = data.copy()
-            data_with_clusters["Cluster"] = cluster_labels
-            df_cluster_means = data_with_clusters.groupby("Cluster").mean().round(4)
+            data_with_clusters["Gruca"] = cluster_labels
+            df_cluster_means = data_with_clusters.groupby("Gruca").mean().round(4)
             if k == 3:
                 print("\n------------------------------------------------------------")
                 print(f"IZBRANA tabela podatkov za {k} gruc:")
