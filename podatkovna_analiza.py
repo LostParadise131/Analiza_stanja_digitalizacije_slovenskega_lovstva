@@ -10,6 +10,7 @@ from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
 from scipy.spatial.distance import pdist, squareform
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.inspection import permutation_importance
 from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
 from sklearn.model_selection import GridSearchCV, train_test_split
@@ -354,20 +355,41 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
         train_score = best_random_forest.score(X_train, y_train)
         test_score = best_random_forest.score(X_test, y_test)
 
-        feature_importance = best_random_forest.feature_importances_
+        # Uporabim MDA namesto MDI, ker je MDI lahko pristranski
+        # do spremenljivk z vec kategorijami
+        # omejitve, kar se racunanja tice
+        perm_importance = permutation_importance(
+            best_random_forest,
+            X_test,
+            y_test,
+            n_repeats=30,  # Number of shuffles
+            random_state=42,
+            scoring="accuracy",
+        )
+
         feature_names = X.columns
-        importance_df = pd.DataFrame(
-            {"Feature": feature_names, "Importance": feature_importance}
+        importance_df_mda = pd.DataFrame(
+            {"Feature": feature_names, "Importance": perm_importance.importances_mean}
         ).sort_values(by="Importance", ascending=False)
 
-        plt.figure(figsize=(12, 6))
-        plt.barh(importance_df["Feature"], importance_df["Importance"], color="skyblue")
-        plt.xlabel("Feature Importance")
-        plt.title(
-            "Random Forest Feature Importance\n"
-            + f"Train/test score:{train_score:.4f}/{test_score:.4f}\n"
+        print("\n\nRANDOM FOREST - POMEMBNOST ZNACILK (MDA):")
+        # Pokazi vse vrednosti za pomembnost znacilk
+        print("Permutation Feature Importance (MDA) for all features:\n")
+        for idx, row in importance_df_mda.iterrows():
+            print(f"{row['Feature']:<25} Importance: {row['Importance']:.4f}")
+
+        plt.figure(figsize=(10, 6))
+        plt.barh(
+            importance_df_mda["Feature"],
+            importance_df_mda["Importance"],
+            color="skyblue",
         )
-        plt.gca().invert_yaxis()
+        plt.xlabel("Permutation Feature Importance (MDA)")
+        plt.title(
+            "Naključni gozd, ocena pomembnosti značilk s permutacijami\n"
+            + f"Train/test score: {train_score:.4f}/{test_score:.4f}"
+        )
+        plt.gca().invert_yaxis()  # Highest importance on top
         plt.tight_layout()
         plt.savefig(
             "slike/random_forest_feature_importance.png", dpi=300, bbox_inches="tight"

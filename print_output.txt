@@ -77,3 +77,18 @@ Gruca
 2     0.9773 0.6970 0.0000 0.0000 0.3636 0.7273 0.3636 0.8788 0.6667 0.8485
 3     0.0189 0.0000 0.0231 0.5378 1.0000 0.7541 0.8640 0.9490 0.8455 0.8648
 4     0.0583 0.0000 0.0083 0.0818 0.0000 0.7222 0.6000 0.8444 0.5638 0.7566
+
+
+RANDOM FOREST - POMEMBNOST ZNACILK (MDA):
+Permutation Feature Importance (MDA) for all features:
+
+Q2                        Importance: 0.2402
+Q7                        Importance: 0.2145
+Q3                        Importance: 0.0479
+Q5                        Importance: 0.0188
+Q4                        Importance: 0.0000
+Q10                       Importance: 0.0000
+Q11                       Importance: 0.0000
+Q12                       Importance: 0.0000
+Q14                       Importance: 0.0000
+Q13                       Importance: -0.0017
