@@ -128,6 +128,11 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
                 sil_scores[k] = score
 
             best_k = max(sil_scores, key=sil_scores.get)
+            if dist_type == "cityblock":
+                dist_type = "manhattanska razdalja"
+            else:
+                dist_type = "evklidska razdalja"
+
             print(
                 "\n'Najboljse' stevilo gruc",
                 best_k,
@@ -161,59 +166,6 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
                 bbox_inches="tight",
             )
             plt.show()
-
-        # step 7: PCA
-        print("\n\nPCA:")
-        pca = PCA()
-        pca.fit(data)
-
-        explained_variance_ratio = pca.explained_variance_ratio_
-        cumulative_variance = np.cumsum(explained_variance_ratio)
-
-        num_components_for_over_90 = np.argmax(cumulative_variance >= 0.90) + 1
-        print(
-            f"Stevilo komponent za vec kot 90% variance: {num_components_for_over_90}"
-        )
-        loadings = pca.components_.T
-
-        feature_contributions = np.sum(
-            np.abs(loadings[:, :num_components_for_over_90]), axis=1
-        )
-        feature_importance = pd.DataFrame(
-            {
-                "Oznaka": column_list,
-                "Vprasanje": question_texts[:CUTOFF],
-                "Contribution": feature_contributions,
-            }
-        ).sort_values(by="Contribution", ascending=False)
-
-        print("Vpliv posameznih vprašanj na 90% variance:")
-        i = 0
-        for idx, row in feature_importance.iterrows():
-            i += 1
-            if i > num_components_for_over_90:
-                break
-            print(
-                f"({i}) {row['Oznaka']} {row['Vprasanje'][:CUTOFF]}:\n {row['Contribution']:.4f}"
-            )
-
-        # Plot cumulative variance
-        plt.figure(figsize=(10, 6))
-        plt.plot(
-            range(1, len(cumulative_variance) + 1), cumulative_variance, marker="o"
-        )
-        plt.axhline(y=0.9, color="r", linestyle="--", label="90% variance")
-        plt.xlabel("Stevilo glavnih komponent (PC)")
-        plt.ylabel("Kumulativni delez variance")
-        plt.title("PCA: Kumulativna razlaga variance")
-        plt.legend()
-        plt.grid(True)
-        plt.savefig(
-            "slike/pca_cumulative_variance.png",
-            dpi=300,
-            bbox_inches="tight",
-        )
-        plt.show()
 
         # Naredi zanimive/razlozljive gruce
         # od 2 do 4 bom raziskal, ker so podatki binarni
@@ -322,7 +274,10 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
             filled=True,
             rounded=True,
             fontsize=10,
+            impurity=False,  # hides gini
+            label="all",  # shows only class name at leaf
         )
+
         plt.title(
             f"Odlocilno drevo z naj parametrom:{grid_search.best_params_}\n"
             + f"Train/test score:{train_score:.4f}/{test_score:.4f}\n"

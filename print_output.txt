@@ -34,24 +34,9 @@ Mean = 0.8485, Stevilo NaN = 8.0000
 
 HIERARHICNO GRUCENJE:
 
-'Najboljse' stevilo gruc 16 s silhueto 0.47632858769277603 z razdaljo cityblock
+'Najboljse' stevilo gruc 16 s silhueto 0.47632858769277603 z razdaljo manhattanska razdalja
 
-'Najboljse' stevilo gruc 11 s silhueto 0.46219240932688044 z razdaljo euclidean
-
-
-PCA:
-Stevilo komponent za vec kot 90% variance: 5
-Vpliv posameznih vprašanj na 90% variance:
-(1) Q7 Ali bi bilo po vašem mnenju dobro, da bi lovska dr:
- 1.9519
-(2) Q11 Ali bi bilo po vašem mnenju dobro, da bi lovci ime:
- 1.6511
-(3) Q5 Ali bi izvajali sestanke na daljavo v primeru, če :
- 1.5508
-(4) Q13 Ali bi bilo po vašem mnenju koristno, da bi imeli :
- 1.1820
-(5) Q2 Ali ima vaša lovska družina spletno stran?:
- 0.9016
+'Najboljse' stevilo gruc 11 s silhueto 0.46219240932688044 z razdaljo evklidska razdalja
 
 
 RAZLOZLJIVE GRUCE:
