@@ -101,5 +101,22 @@ question_map = {
     "Q16": "Katere ključne funkcionalnosti bi po vašem mnenju morala imeti mobilna aplikacija za lovce?",
 }
 
+
+# 2, 3, 4, 5, 6a, 6b, 6c, 6c_text, 7, 8, (0-9)
+# 9a, 9b, 9c, 9d, 9e, 9f, 9g, 9g_text, 10, 11, (10-19)
+# 12, 13, 14, 15_text, 16a, 16b, 16c, 16d, 16e, 16f,  (20-29)
+# 16g, 16h, 16h_text (30-32)
+
+# Q5, Q7, Q8, Q11 #
+indexes_for_binary_answers = [3, 8, 9, 19]
+
+# indexes_for_ternary_answers [10, 12, 13, 14]
+indexes_for_ternary_answers = [18, 20, 21, 22]
+
+# multiple choice questions
+indexes_for_Q6 = [4, 5, 6]
+indexes_for_Q9 = [10, 11, 12, 13, 14, 15, 16]
+indexes_for_Q16 = [24, 25, 26, 27, 28, 29, 30, 31]
+
 # Q2, Q3, Q4, Q5, Q7, Q8, Q10, Q11, Q12, Q13, Q14 (11/15) ############################################################################################################
 indexes_for_single_choice_questions = [0, 1, 2, 3, 8, 9, 18, 19, 20, 21, 22]

@@ -2,6 +2,7 @@ import os
 import sys
 from contextlib import redirect_stdout
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -265,22 +266,34 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
         train_score = best_tree.score(X_train, y_train)
         test_score = best_tree.score(X_test, y_test)
 
-        plt.figure(figsize=(10, 6))
-
+        plt.figure(figsize=(14, 9))
+        ax = plt.gca()
         plot_tree(
             best_tree,
             feature_names=X.columns,
             class_names=[gruce_ime_map[i] for i in sorted(y.unique())],
             filled=True,
             rounded=True,
-            fontsize=10,
-            impurity=False,  # hides gini
-            label="all",  # shows only class name at leaf
+            fontsize=14,
+            impurity=False,  # hides Gini
+            label="all",  # shows class name in leaf
+            proportion=False,  # avoids showing raw samples
         )
+        for text_obj in ax.texts:
+            txt = text_obj.get_text()
+            # Example of text in node: "feature_name <= 0.75\nsamples = 42\nclass = X"
+            lines = txt.split("\n")
+            new_lines = []
+            for line in lines:
+                if line.startswith("samples"):
+                    continue  # skip sample counts
+                else:
+                    new_lines.append(line)
+            text_obj.set_text("\n".join(new_lines))
 
         plt.title(
             f"Odlocilno drevo z naj parametrom:{grid_search.best_params_}\n"
-            + f"Train/test score:{train_score:.4f}/{test_score:.4f}\n"
+            + f"Rezultat učne/testne množice:{train_score:.4f}/{test_score:.4f}\n"
         )
         plt.tight_layout()
         plt.savefig(
