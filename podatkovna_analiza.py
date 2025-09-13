@@ -242,6 +242,14 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
         }
         data["gruce_index"] = cluster_labels
         data["gruce_ime"] = data["gruce_index"].map(gruce_ime_map)
+        # stevilo clanov v vsaki gruci
+        print("\nStevilo clanov v vsaki gruci:")
+        for i in range(1, najzanimivejsi_k + 1):
+            print(
+                f"Gruca {i} ({gruce_ime_map[i]}): "
+                + f"{(data['gruce_index'] == i).sum()} clanov, "
+                + f"{((data['gruce_index'] == i).sum() / data.shape[0]) * 100:.2f}%"
+            )
 
         # supervized learning
         # decision tree za razlago gruc
