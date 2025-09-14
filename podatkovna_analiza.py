@@ -26,17 +26,17 @@ from maps_for_questions import (
 
 CUTOFF = 50  # za dolga vprasanja
 
-# Diplay settings
-pd.set_option("display.max_rows", None)  # show all rows
-pd.set_option("display.max_columns", None)  # show all columns
-pd.set_option("display.width", None)  # auto-detect width
-pd.set_option("display.max_colwidth", None)  # show full content in each column
-pd.set_option("display.float_format", "{:.4f}".format)  # format floats nicely
+# Nastavitve za lepse izpise print
+pd.set_option("display.max_rows", None)
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", None)
+pd.set_option("display.max_colwidth", None)
+pd.set_option("display.float_format", "{:.4f}".format)
 
 np.set_printoptions(threshold=np.inf, linewidth=np.inf, precision=4)
 os.makedirs("slike", exist_ok=True)
 
-# Put all prints in print_output.txt
+# Vse print izpise v datoteko, za preglednost
 with open("print_output.txt", "w", encoding="utf-8") as f:
     with redirect_stdout(f):
         # Step 1: Nalozi podatke ter odstrani neuporabne stolpce
@@ -44,7 +44,6 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
 
         # Odstanimo se Q8 vprasanje, ker je vec kot 75% NaN
         indexes_for_single_choice_questions.remove(9)
-        # magic numbers ik :(
 
         data = data.iloc[1:, indexes_for_single_choice_questions]
         column_list = data.columns.to_list()
@@ -119,7 +118,7 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
             else:
                 Z = linkage(dist_matrix, method="complete")
 
-            # Step 5: determiniraj "optimalno" stevilo gruc
+            # Step 5: determiniraj "optimalno" stevilo gruc s silhuetno analizo
             sil_scores = {}
             for k in range(2, 31):
                 cluster_labels = fcluster(Z, k, criterion="maxclust")
@@ -176,11 +175,7 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
         # (2-4) je silhueta boljsa TER VIZUALNO na dendrogramu izgleda bolj smiselno
         # GLEJ DENDROGRAM v .slike/
 
-        # distance_types = ["cityblock", "euclidean"]
-        # for dist_type in distance_types:
-
         print("\n\nRAZLOZLJIVE GRUCE:")
-
         dist_matrix = pdist(data, metric="cityblock")
 
         Z = linkage(dist_matrix, method="complete")
@@ -283,18 +278,18 @@ with open("print_output.txt", "w", encoding="utf-8") as f:
             filled=True,
             rounded=True,
             fontsize=14,
-            impurity=False,  # hides Gini
-            label="all",  # shows class name in leaf
-            proportion=False,  # avoids showing raw samples
+            impurity=False,  # boljsa preglednost
+            label="all",
+            proportion=False,
         )
+        # Odstrani "samples" iz textov v boxih
         for text_obj in ax.texts:
             txt = text_obj.get_text()
-            # Example of text in node: "feature_name <= 0.75\nsamples = 42\nclass = X"
             lines = txt.split("\n")
             new_lines = []
             for line in lines:
                 if line.startswith("samples"):
-                    continue  # skip sample counts
+                    continue
                 else:
                     new_lines.append(line)
             text_obj.set_text("\n".join(new_lines))
